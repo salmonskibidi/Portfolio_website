@@ -165,13 +165,22 @@ main {
     line-height: 1.05;
     font-size: clamp(5px, 2vw - 1px, 11px);
     color: transparent;
-    background-image: url("2.webp");
     background-size: cover;
     background-position: center;
     -webkit-background-clip: text;
     background-clip: text;
     white-space: pre;
     overflow: hidden;
+}
+
+/* real photo tint per portrait (see tools/toascii.ps1) */
+.portrait__ascii[data-art="1"] { background-image: url("1.jpg"); }
+.portrait__ascii[data-art="2"] { background-image: url("2.webp"); }
+.portrait__ascii[data-art="3"] { background-image: url("3.webp"); }
+.portrait__ascii[data-art="4"] { background-image: url("4.jpg"); }
+
+.portrait__ascii[hidden] {
+    display: none;
 }
 
 /* browsers without background-clip: text fall back to amber phosphor */
@@ -191,24 +200,6 @@ main {
     visibility: visible;
 }
 
-.portrait__real {
-    position: absolute;
-    inset: 0.9rem;
-    width: calc(100% - 1.8rem);
-    height: calc(100% - 1.8rem);
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-}
-
-.portrait.is-real .portrait__real {
-    opacity: 1;
-}
-
-.portrait.is-real .portrait__ascii {
-    visibility: hidden;
-}
-
 .portrait__hint {
     position: absolute;
     left: 0;
@@ -216,8 +207,71 @@ main {
     bottom: 0.35rem;
     text-align: center;
     font-size: 0.6rem;
-    color: var(--faint);
+    color: var(--bright);
+    background: rgba(12, 10, 6, 0.75);
     letter-spacing: 0.08em;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.portrait:hover .portrait__hint,
+.portrait:focus-visible .portrait__hint {
+    opacity: 1;
+}
+
+.portrait-col {
+    justify-self: start;
+}
+
+.portrait__switch {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 0.85rem;
+}
+
+.switch-btn {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--dim);
+    background: transparent;
+    border: 1px solid var(--faint);
+    border-radius: 2px;
+    padding: 0.1rem 0.65rem;
+    cursor: pointer;
+}
+
+.switch-btn:hover {
+    color: var(--amber);
+    border-color: var(--amber);
+}
+
+.switch-btn.is-active {
+    color: var(--bg);
+    background: var(--amber);
+    border-color: var(--amber);
+    text-shadow: none;
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(5, 4, 2, 0.93);
+    cursor: pointer;
+}
+
+.lightbox[hidden] {
+    display: none;
+}
+
+.lightbox__img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border: 1px solid var(--faint);
 }
 
 .hero__bio {

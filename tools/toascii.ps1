@@ -16,11 +16,18 @@ param(
     [double]$Gamma = 1.5,
     [double]$Aspect = 0.5,
     [string]$Ramp = " .:-=+*#%@",
-    [double[]]$Crop = @()
+    [string]$Crop = ""
 )
 
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Drawing
+
+# -Crop "minX,minY,maxX,maxY" (string, parsed here — -File invocations pass args as strings)
+$cropVals = @()
+if ($Crop -ne "") {
+    $cropVals = @($Crop -split "," | ForEach-Object { [double]$_ })
+    if ($cropVals.Count -ne 4) { throw "-Crop needs exactly 4 values: minX,minY,maxX,maxY" }
+}
 
 if (-not (Test-Path -LiteralPath $InputPath)) {
     throw "Input image not found: $InputPath"
@@ -30,9 +37,9 @@ $img = [System.Drawing.Bitmap]::FromFile((Resolve-Path -LiteralPath $InputPath).
 
 $minX = 0; $minY = 0
 $maxX = $img.Width; $maxY = $img.Height
-if ($Crop.Count -eq 4) {
-    $minX = [Math]::Max(0, [int]$Crop[0]); $minY = [Math]::Max(0, [int]$Crop[1])
-    $maxX = [Math]::Min($img.Width - 1, [int]$Crop[2]); $maxY = [Math]::Min($img.Height - 1, [int]$Crop[3])
+if ($cropVals.Count -eq 4) {
+    $minX = [Math]::Max(0, [int]$cropVals[0]); $minY = [Math]::Max(0, [int]$cropVals[1])
+    $maxX = [Math]::Min($img.Width - 1, [int]$cropVals[2]); $maxY = [Math]::Min($img.Height - 1, [int]$cropVals[3])
 }
 $cw = $maxX - $minX + 1
 $ch = $maxY - $minY + 1
