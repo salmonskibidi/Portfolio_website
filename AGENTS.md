@@ -7,8 +7,8 @@ Static personal portfolio website (Thai-language content). No build system, no f
 - `index.html` — the entire site (single page). Contains a hand-injected ASCII portrait inside `<pre class="portrait__ascii">` (generated from the photo; whitespace is significant, edit carefully). The portrait is tinted with the real photo via `background-clip: text` on the `<pre>` — removing that rule silently reverts it to amber-only text.
 - `styles.css` — all styling, plain CSS.
 - `script.js` — vanilla JS only: typing/ASCII reveal animation, portrait ASCII↔photo toggle. No frameworks, no build step.
-- `tools/toascii.ps1` — PowerShell image→ASCII converter (source of truth for the portrait art). Regenerate and re-inject into `index.html`'s `<pre class="portrait__ascii">` after running; don't hand-edit the art.
-- `1773750338475.jpg` — real profile photo, toggled over the ASCII portrait on click; also the source used to generate the ASCII art.
+- `tools/toascii.ps1` — PowerShell image→ASCII converter (source of truth for the portrait art). Regenerate and re-inject into `index.html`'s `<pre class="portrait__ascii">` after running; don't hand-edit the art. WebP input must be converted first (e.g. via `ffmpeg -i 2.webp out.png`) — GDI+ cannot decode WebP. Current portrait params: `-InputPath <2.webp converted to PNG> -Crop 770,860,2610,3072 -Gamma 0.65`.
+- `2.webp` — real profile photo, toggled over the ASCII portrait on click; also tinted through the ASCII art (see `styles.css`) and the source of the ASCII art.
 - `.opencode/` — OpenCode config/skills only (its own `node_modules`, not project code).
 
 ## Conventions

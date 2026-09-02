@@ -92,8 +92,9 @@ for ($y = 0; $y -lt $h; $y++) {
 $result = $sb.ToString()
 
 if ($OutputPath -ne "") {
-    [System.IO.File]::WriteAllText((Join-Path (Get-Location) $OutputPath), $result, (New-Object System.Text.UTF8Encoding($false)))
-    Write-Host "wrote $OutputPath ($Width x $h)"
+    $outFull = if ([System.IO.Path]::IsPathRooted($OutputPath)) { $OutputPath } else { Join-Path (Get-Location) $OutputPath }
+    [System.IO.File]::WriteAllText($outFull, $result, (New-Object System.Text.UTF8Encoding($false)))
+    Write-Host "wrote $outFull ($Width x $h)"
 } else {
     Write-Output $result
 }
