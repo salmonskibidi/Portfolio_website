@@ -6,8 +6,6 @@
     const PHOTOS = { 1: '1.jpg', 2: '2.webp', 3: '3.webp', 4: '4.jpg' };
 
     const portrait = document.getElementById('portrait');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox ? lightbox.querySelector('.lightbox__img') : null;
     const switchBtns = Array.from(document.querySelectorAll('.switch-btn'));
     let currentPhoto = '2';
 
@@ -43,6 +41,8 @@
     };
 
     // photo switcher
+    const realImg = document.querySelector('.portrait__real');
+
     const switchPhoto = (n) => {
         if (n === currentPhoto || !PHOTOS[n]) return;
         currentPhoto = n;
@@ -52,6 +52,8 @@
             b.classList.toggle('is-active', active);
             b.setAttribute('aria-pressed', active ? 'true' : 'false');
         });
+
+        if (realImg) realImg.src = PHOTOS[n];
 
         document.querySelectorAll('pre.ascii').forEach((pre) => {
             const show = pre.dataset.art === n;
@@ -68,31 +70,20 @@
         b.addEventListener('click', () => switchPhoto(b.dataset.photo));
     });
 
-    // lightbox: click portrait to view the full photo
-    const openLightbox = () => {
-        if (!lightbox || !lightboxImg) return;
-        lightboxImg.src = PHOTOS[currentPhoto];
-        lightbox.hidden = false;
-    };
-    const closeLightbox = () => {
-        if (lightbox) lightbox.hidden = true;
-    };
-
+    // click the portrait to toggle between ASCII art and the real photo (in-frame)
     if (portrait) {
-        portrait.addEventListener('click', openLightbox);
+        const toggle = () => {
+            const on = portrait.classList.toggle('is-real');
+            portrait.setAttribute('aria-pressed', on ? 'true' : 'false');
+        };
+        portrait.addEventListener('click', toggle);
         portrait.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                openLightbox();
+                toggle();
             }
         });
     }
-    if (lightbox) {
-        lightbox.addEventListener('click', closeLightbox);
-    }
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeLightbox();
-    });
 
     const runSection = (sec) => {
         if (sec._ran) return;

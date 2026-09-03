@@ -29,7 +29,7 @@
 
                 <div class="hero">
                                         <div class="portrait-col">
-                        <figure class="portrait" id="portrait" role="button" tabindex="0" aria-label="View full photo">
+                        <figure class="portrait" id="portrait" role="button" tabindex="0" aria-pressed="false" aria-label="Switch between ASCII art and the real photo">
                             <pre class="portrait__ascii ascii is-active" data-art="2" aria-hidden="true">++=*########################################################################%%%%%%%%
 ==+##################################################################%%%%%%%%%%%%%%%
 =+#####**######################################################%%%%%%%%%%%%%%%%%%%%%
@@ -286,7 +286,8 @@
 ............     .....         .......       .   .... .. ....    ....               
 ...... .....  .   .....       ..... .        .    .. ..  .   .    ...               
 .  .         ....    .         ......             ...... . .   .  ....</pre>
-                            <figcaption class="portrait__hint">[ click to view full photo ]</figcaption>
+                            <img class="portrait__real" src="2.webp" alt="Real portrait photo">
+                        <figcaption class="portrait__hint">[ click to view real photo ]</figcaption>
                         </figure>
                         <div class="portrait__switch" role="group" aria-label="Choose portrait photo">
                             <button class="switch-btn" type="button" data-photo="1">1</button>
@@ -367,9 +368,6 @@
         <p class="footer__note">© 2026 Phattarakit Chalermpun — always happy to hear from you.</p>
     </footer>
 
-    <div class="lightbox" id="lightbox" hidden>
-        <img class="lightbox__img" src="2.webp" alt="Full portrait photo">
-    </div>
     <script src="script.js"></script>
 </body>
 

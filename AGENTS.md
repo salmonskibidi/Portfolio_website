@@ -4,7 +4,7 @@ Static personal portfolio website (Thai-language content). No build system, no f
 
 ## Structure
 
-- `index.html` — the entire site (single page). Contains four hand-injected ASCII portraits inside `<pre class="portrait__ascii" data-art="n">` (one per photo; whitespace is significant, edit carefully). Each portrait is tinted with its real photo via `background-clip: text` rules in `styles.css` — removing those rules silently reverts to amber-only text. The numbered buttons switch photos; clicking the portrait opens a full-photo lightbox.
+- `index.html` — the entire site (single page). Contains four hand-injected ASCII portraits inside `<pre class="portrait__ascii" data-art="n">` (one per photo; whitespace is significant, edit carefully). Each portrait is tinted with its real photo via `background-clip: text` rules in `styles.css` — removing those rules silently reverts to amber-only text. The numbered buttons switch photos; clicking the portrait toggles between ASCII art and the real photo in-frame.
 - `styles.css` — all styling, plain CSS.
 - `script.js` — vanilla JS only: typing/ASCII reveal animation, portrait ASCII↔photo toggle. No frameworks, no build step.
 - `tools/toascii.ps1` — PowerShell image→ASCII converter (source of truth for the portrait art). Regenerate and re-inject into `index.html`'s `<pre class="portrait__ascii">` after running; don't hand-edit the art. WebP input must be converted first (e.g. via `ffmpeg -i 2.webp out.png`) — GDI+ cannot decode WebP. Portrait params per photo: 1.jpg `-Crop "320,340,790,930" -Gamma 0.65`, 2.webp `-Crop "770,860,2610,3072" -Gamma 0.65`, 3.webp `-Crop "480,60,980,760" -Gamma 0.55`, 4.jpg `-Crop "950,170,1580,1580" -Gamma 0.65`.
