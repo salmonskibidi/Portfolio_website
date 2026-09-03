@@ -1,13 +1,13 @@
 :root {
-    --bg: #0c0a06;
-    --raise: #14100a;
-    --amber: #ffb000;
-    --bright: #ffd98a;
-    --dim: #c79a2e;
-    --faint: #6e5618;
-    --red: #ff4a2e;
-    --glow: 0 0 10px rgba(255, 176, 0, 0.30);
-    --glow-strong: 0 0 3px rgba(255, 217, 138, 0.8), 0 0 18px rgba(255, 176, 0, 0.35);
+    --bg: #fbf8fd;
+    --raise: #f2edf9;
+    --amber: #7a6bb8;
+    --bright: #564a94;
+    --dim: #948ac2;
+    --faint: #d5cdea;
+    --red: #d16a94;
+    --glow: none;
+    --glow-strong: none;
     --mono: 'IBM Plex Mono', monospace;
 }
 
@@ -18,12 +18,12 @@
 }
 
 html {
-    color-scheme: dark;
+    color-scheme: light;
     scroll-behavior: smooth;
 }
 
 body {
-    background: radial-gradient(120% 90% at 50% 0%, #171208 0%, var(--bg) 55%);
+    background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, var(--bg) 55%);
     color: var(--amber);
     font-family: var(--mono);
     font-size: 16px;
@@ -33,8 +33,8 @@ body {
 }
 
 ::selection {
-    background: var(--amber);
-    color: var(--bg);
+    background: #d9ccf2;
+    color: #3f3573;
 }
 
 :focus-visible {
@@ -49,8 +49,8 @@ body {
     pointer-events: none;
     background: repeating-linear-gradient(
         0deg,
-        rgba(0, 0, 0, 0.20) 0px,
-        rgba(0, 0, 0, 0.20) 1px,
+        rgba(120, 100, 160, 0.05) 0px,
+        rgba(120, 100, 160, 0.05) 1px,
         transparent 1px,
         transparent 3px
     );
@@ -68,7 +68,7 @@ body {
     padding: 0.55rem 1.25rem;
     font-size: 0.75rem;
     letter-spacing: 0.12em;
-    background: rgba(12, 10, 6, 0.92);
+    background: rgba(251, 248, 253, 0.92);
     border-bottom: 1px solid var(--faint);
 }
 
@@ -208,7 +208,7 @@ main {
     text-align: center;
     font-size: 0.6rem;
     color: var(--bright);
-    background: rgba(12, 10, 6, 0.75);
+    background: rgba(251, 248, 253, 0.85);
     letter-spacing: 0.08em;
     opacity: 0;
     transition: opacity 0.25s ease;
@@ -247,9 +247,9 @@ main {
 }
 
 .switch-btn.is-active {
-    color: var(--bg);
-    background: var(--amber);
-    border-color: var(--amber);
+    color: #ffffff;
+    background: var(--bright);
+    border-color: var(--bright);
     text-shadow: none;
 }
 
@@ -385,7 +385,7 @@ main {
     height: 1.05em;
     margin-left: 0.15em;
     vertical-align: baseline;
-    background: var(--amber);
+    background: var(--red);
     animation: blink 1.1s step-end infinite;
 }
 
