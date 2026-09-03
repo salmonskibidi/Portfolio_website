@@ -359,6 +359,63 @@ main {
 .files__desc {
     color: var(--dim);
     font-size: 0.92rem;
+    max-width: 38rem;
+}
+
+.files__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.badge {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--bright);
+    border: 1px solid var(--red);
+    background: rgba(209, 106, 148, 0.08);
+    padding: 0.15rem 0.55rem;
+    border-radius: 2px;
+}
+
+.files__certs {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.cert {
+    position: relative;
+    display: block;
+    width: 150px;
+    border: 1px solid var(--faint);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.cert:hover {
+    border-color: var(--red);
+    transform: translateY(-2px);
+}
+
+.cert img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.cert__tag {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    color: #faf5ea;
+    background: rgba(23, 19, 12, 0.75);
+    padding: 0.1rem 0;
 }
 
 .footer {

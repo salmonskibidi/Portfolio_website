@@ -9,6 +9,7 @@ Static personal portfolio website (Thai-language content). No build system, no f
 - `script.js` — vanilla JS only: typing/ASCII reveal animation, portrait ASCII↔photo toggle. No frameworks, no build step.
 - `tools/toascii.ps1` — PowerShell image→ASCII converter (source of truth for the portrait art). Regenerate and re-inject into `index.html`'s `<pre class="portrait__ascii">` after running; don't hand-edit the art. WebP input must be converted first (e.g. via `ffmpeg -i 2.webp out.png`) — GDI+ cannot decode WebP. Always use `-Aspect 0.571` (the real monospace cell aspect) and NO `-Crop` — the owner wants each art to cover the full photo so it scales 1:1 with the real image. Portrait params per photo: 1.jpg `-Gamma 0.65`, 2.webp `-Gamma 0.65`, 3.webp `-Gamma 0.55`, 4.jpg `-Gamma 0.65`.
 - `1.jpg`, `2.webp`, `3.webp`, `4.jpg` — the four profile photos, switchable via the numbered buttons; each full photo also serves as the tint behind its ASCII art (via `background-clip: text` rules in `styles.css`) and is shown in-frame on click.
+- `assets/` — compressed certificate images (`nsc-cert-cat1.jpg`, `nsc-cert-cat2.jpg`) shown as thumbnails in the works section; originals live in `D:\Portfolio\NSC 2026`. Regenerate via `ffmpeg -i in.jpg -vf "scale=700:-2" -q:v 5 out.jpg`.
 - `.opencode/` — OpenCode config/skills only (its own `node_modules`, not project code).
 
 ## Conventions
