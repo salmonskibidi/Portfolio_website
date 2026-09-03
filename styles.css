@@ -1,10 +1,10 @@
 :root {
-    --bg: #fbf8fd;
-    --raise: #f2edf9;
+    --bg: #faf5ea;
+    --raise: #f4eee0;
     --amber: #7a6bb8;
     --bright: #564a94;
     --dim: #948ac2;
-    --faint: #d5cdea;
+    --faint: #e6dcc8;
     --red: #d16a94;
     --glow: none;
     --glow-strong: none;
@@ -23,7 +23,7 @@ html {
 }
 
 body {
-    background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, var(--bg) 55%);
+    background: radial-gradient(120% 90% at 50% 0%, #fffdf6 0%, var(--bg) 55%);
     color: var(--amber);
     font-family: var(--mono);
     font-size: 16px;
@@ -33,8 +33,8 @@ body {
 }
 
 ::selection {
-    background: #d9ccf2;
-    color: #3f3573;
+    background: #f3e6c8;
+    color: #5f5138;
 }
 
 :focus-visible {
@@ -49,8 +49,8 @@ body {
     pointer-events: none;
     background: repeating-linear-gradient(
         0deg,
-        rgba(120, 100, 160, 0.05) 0px,
-        rgba(120, 100, 160, 0.05) 1px,
+        rgba(170, 140, 90, 0.06) 0px,
+        rgba(170, 140, 90, 0.06) 1px,
         transparent 1px,
         transparent 3px
     );
@@ -68,7 +68,7 @@ body {
     padding: 0.55rem 1.25rem;
     font-size: 0.75rem;
     letter-spacing: 0.12em;
-    background: rgba(251, 248, 253, 0.92);
+    background: rgba(250, 245, 234, 0.92);
     border-bottom: 1px solid var(--faint);
 }
 
@@ -149,8 +149,8 @@ main {
     width: max-content;
     max-width: 100%;
     cursor: pointer;
-    border: 1px solid var(--faint);
-    background: var(--raise);
+    border: 1px solid #2e2718;
+    background: #17130c;
     padding: 0.9rem;
 }
 
@@ -183,10 +183,10 @@ main {
     display: none;
 }
 
-/* browsers without background-clip: text fall back to amber phosphor */
+/* browsers without background-clip: text fall back to warm amber ink on the dark frame */
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
     .portrait__ascii {
-        color: var(--amber);
+        color: #ffb000;
         background-image: none;
         text-shadow: var(--glow);
     }
@@ -207,8 +207,8 @@ main {
     bottom: 0.35rem;
     text-align: center;
     font-size: 0.6rem;
-    color: var(--bright);
-    background: rgba(251, 248, 253, 0.85);
+    color: #faf5ea;
+    background: rgba(23, 19, 12, 0.75);
     letter-spacing: 0.08em;
     opacity: 0;
     transition: opacity 0.25s ease;
