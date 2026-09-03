@@ -1,10 +1,10 @@
 :root {
-    --bg: #faf5ea;
-    --raise: #f4eee0;
+    --bg: #fbf8fd;
+    --raise: #f2edf9;
     --amber: #7a6bb8;
     --bright: #564a94;
     --dim: #948ac2;
-    --faint: #e6dcc8;
+    --faint: #d5cdea;
     --red: #d16a94;
     --glow: none;
     --glow-strong: none;
@@ -23,7 +23,7 @@ html {
 }
 
 body {
-    background: radial-gradient(120% 90% at 50% 0%, #fffdf6 0%, var(--bg) 55%);
+    background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, var(--bg) 55%);
     color: var(--amber);
     font-family: var(--mono);
     font-size: 16px;
@@ -33,8 +33,8 @@ body {
 }
 
 ::selection {
-    background: #f3e6c8;
-    color: #5f5138;
+    background: #d9ccf2;
+    color: #3f3573;
 }
 
 :focus-visible {
@@ -49,8 +49,8 @@ body {
     pointer-events: none;
     background: repeating-linear-gradient(
         0deg,
-        rgba(170, 140, 90, 0.06) 0px,
-        rgba(170, 140, 90, 0.06) 1px,
+        rgba(120, 100, 160, 0.05) 0px,
+        rgba(120, 100, 160, 0.05) 1px,
         transparent 1px,
         transparent 3px
     );
@@ -68,7 +68,7 @@ body {
     padding: 0.55rem 1.25rem;
     font-size: 0.75rem;
     letter-spacing: 0.12em;
-    background: rgba(250, 245, 234, 0.92);
+    background: rgba(251, 248, 253, 0.92);
     border-bottom: 1px solid var(--faint);
 }
 
@@ -174,10 +174,10 @@ main {
 }
 
 /* real photo tint per portrait — tint*.jpg are pre-cropped to match each art exactly (see AGENTS.md) */
-.portrait__ascii[data-art="1"] { background-image: url("tint1.jpg"); }
-.portrait__ascii[data-art="2"] { background-image: url("tint2.jpg"); }
-.portrait__ascii[data-art="3"] { background-image: url("tint3.jpg"); }
-.portrait__ascii[data-art="4"] { background-image: url("tint4.jpg"); }
+.portrait__ascii[data-art="1"] { background-image: url("1.jpg"); }
+.portrait__ascii[data-art="2"] { background-image: url("2.webp"); }
+.portrait__ascii[data-art="3"] { background-image: url("3.webp"); }
+.portrait__ascii[data-art="4"] { background-image: url("4.jpg"); }
 
 .portrait__ascii[hidden] {
     display: none;
