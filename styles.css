@@ -173,11 +173,11 @@ main {
     overflow: hidden;
 }
 
-/* real photo tint per portrait (see tools/toascii.ps1) */
-.portrait__ascii[data-art="1"] { background-image: url("1.jpg"); }
-.portrait__ascii[data-art="2"] { background-image: url("2.webp"); }
-.portrait__ascii[data-art="3"] { background-image: url("3.webp"); }
-.portrait__ascii[data-art="4"] { background-image: url("4.jpg"); }
+/* real photo tint per portrait — tint*.jpg are pre-cropped to match each art exactly (see AGENTS.md) */
+.portrait__ascii[data-art="1"] { background-image: url("tint1.jpg"); }
+.portrait__ascii[data-art="2"] { background-image: url("tint2.jpg"); }
+.portrait__ascii[data-art="3"] { background-image: url("tint3.jpg"); }
+.portrait__ascii[data-art="4"] { background-image: url("tint4.jpg"); }
 
 .portrait__ascii[hidden] {
     display: none;
