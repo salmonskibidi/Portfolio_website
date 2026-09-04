@@ -109,4 +109,46 @@
         }, { threshold: 0.15 });
         sections.forEach((s) => io.observe(s));
     }
+
+    // in-page image viewer (lightbox)
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        const lbImg = lightbox.querySelector('.lightbox__img');
+        const lbTag = lightbox.querySelector('.lightbox__tag');
+
+        const openLightbox = (src, alt, tag) => {
+            lbImg.src = src;
+            lbImg.alt = alt || '';
+            lbTag.textContent = tag || '';
+            lightbox.hidden = false;
+            document.body.classList.add('no-scroll');
+        };
+
+        const closeLightbox = () => {
+            lightbox.hidden = true;
+            lbImg.src = '';
+            document.body.classList.remove('no-scroll');
+        };
+
+        // work thumbnails keep their <a href> as a no-JS fallback, but open in-page when JS runs
+        document.querySelectorAll('.files .cert').forEach((a) => {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                const img = a.querySelector('img');
+                const tag = a.querySelector('.cert__tag');
+                openLightbox(a.getAttribute('href'), img ? img.alt : '', tag ? tag.textContent : '');
+            });
+        });
+
+        // main work images open the viewer too
+        document.querySelectorAll('.files .bb_img, .files .work_img').forEach((img) => {
+            img.classList.add('is-zoomable');
+            img.addEventListener('click', () => openLightbox(img.src, img.alt, '[ full view ]'));
+        });
+
+        lightbox.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+        });
+    }
 })();
