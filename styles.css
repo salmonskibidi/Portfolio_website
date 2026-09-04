@@ -446,6 +446,12 @@ main {
     animation: blink 1.1s step-end infinite;
 }
 
+.bb_img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+}
+
 @keyframes blink {
     0%, 49% {
         opacity: 1;
