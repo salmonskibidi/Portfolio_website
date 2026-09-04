@@ -447,9 +447,17 @@ main {
 }
 
 .bb_img {
-    width: 140px;
-    height: 140px;
+    width: 700px;
+    height: 450px;
     object-fit: cover;
+}
+
+.work_img {
+    display: block;
+    width: 700px;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--faint);
 }
 
 @keyframes blink {
