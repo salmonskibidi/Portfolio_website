@@ -447,8 +447,10 @@ main {
 }
 
 .bb_img {
+    display: block;
     width: 700px;
-    height: 450px;
+    max-width: 100%;
+    height: auto;
     object-fit: cover;
 }
 

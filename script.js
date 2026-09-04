@@ -117,7 +117,7 @@
         const lbTag = lightbox.querySelector('.lightbox__tag');
 
         const openLightbox = (src, alt, tag) => {
-            lbImg.src = src;
+            lbImg.setAttribute('src', src);
             lbImg.alt = alt || '';
             lbTag.textContent = tag || '';
             lightbox.hidden = false;
@@ -126,7 +126,7 @@
 
         const closeLightbox = () => {
             lightbox.hidden = true;
-            lbImg.src = '';
+            lbImg.removeAttribute('src');
             document.body.classList.remove('no-scroll');
         };
 
