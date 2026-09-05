@@ -92,29 +92,6 @@
         if (body) body.classList.add('is-visible');
         const ascii = sec.querySelector('pre.ascii:not([hidden])');
         if (ascii) printAscii(ascii);
-        decodeTitle(sec.querySelector('.sec-title'));
-    };
-
-    const GLYPHS = '!@#$%^&*';
-
-    const decodeTitle = (title) => {
-        if (!title) return;
-        const final = title.textContent.trim();
-        let frame = 0;
-        const hold = 6;
-        const iv = setInterval(() => {
-            const reveal = Math.max(0, Math.floor((frame - hold) / 2));
-            let out = '';
-            for (let i = 0; i < final.length; i++) {
-                out += (i < reveal || final[i] === ' ') ? final[i] : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-            }
-            title.textContent = out;
-            frame++;
-            if (reveal >= final.length) {
-                clearInterval(iv);
-                title.textContent = final;
-            }
-        }, 60);
     };
 
     const sections = document.querySelectorAll('[data-term]');
@@ -131,6 +108,53 @@
             });
         }, { threshold: 0.08 });
         sections.forEach((s) => io.observe(s));
+    }
+
+    // text decode — every message unlocks into glyphs as it scrolls into view
+    const GLYPHS = '!@#$%^&*';
+    const HOLD = 5;
+    const SPAN = 12;
+
+    const decodeNode = (node) => {
+        if (node._decodeRan) return;
+        node._decodeRan = true;
+        const final = node.textContent;
+        let frame = 0;
+        const iv = setInterval(() => {
+            const reveal = Math.floor(((frame - HOLD) / SPAN) * final.length);
+            let out = '';
+            for (let i = 0; i < final.length; i++) {
+                out += (i < reveal || /\s/.test(final[i])) ? final[i] : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+            }
+            node.textContent = out;
+            frame++;
+            if (reveal >= final.length) {
+                clearInterval(iv);
+                node.textContent = final;
+            }
+        }, 60);
+    };
+
+    const decodeEl = (el) => {
+        Array.from(el.childNodes).forEach((n) => {
+            if (n.nodeType === 3 && n.textContent.trim()) decodeNode(n);
+        });
+    };
+
+    const decodeTargets = document.querySelectorAll('.hero-name, .sec-title, .log__tag, .log__text, .files__name, .footer__note');
+
+    if ('IntersectionObserver' in window) {
+        const dio = new IntersectionObserver((entries) => {
+            entries.forEach((en) => {
+                if (en.isIntersecting) {
+                    decodeEl(en.target);
+                    dio.unobserve(en.target);
+                }
+            });
+        }, { threshold: 0.8 });
+        decodeTargets.forEach((t) => dio.observe(t));
+    } else {
+        decodeTargets.forEach(decodeEl);
     }
 
     // in-page image viewer (lightbox)
