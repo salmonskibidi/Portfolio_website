@@ -470,6 +470,10 @@ body.no-scroll {
     overflow: hidden;
 }
 
+.lightbox[hidden] {
+    display: none;
+}
+
 .lightbox {
     position: fixed;
     inset: 0;
