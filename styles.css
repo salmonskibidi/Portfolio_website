@@ -356,6 +356,27 @@ main {
     text-shadow: var(--glow);
 }
 
+.files__play {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--bright);
+    text-decoration: none;
+    border: 1px solid var(--faint);
+    background: var(--raise);
+    padding: 0.2rem 0.7rem;
+    border-radius: 2px;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.files__play:hover {
+    border-color: var(--red);
+    color: var(--red);
+    transform: translateY(-2px);
+}
+
 .files__desc {
     color: var(--dim);
     font-size: 0.92rem;
