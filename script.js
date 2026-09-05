@@ -276,7 +276,7 @@
     });
 
     // mouse trail — decorative glyphs printed behind the cursor
-    if (!reduced && window.matchMedia('(pointer: fine)').matches) {
+    if (window.matchMedia('(pointer: fine)').matches) {
         const GLYPHS_TRAIL = '!@#$%^&*';
         let lastX = -100;
         let lastY = -100;
