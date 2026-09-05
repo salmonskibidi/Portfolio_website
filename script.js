@@ -280,15 +280,18 @@
         const GLYPHS_TRAIL = '!@#$%^&*';
         let lastX = -100;
         let lastY = -100;
+        let hue = 0;
         document.addEventListener('mousemove', (e) => {
             const dx = e.clientX - lastX;
             const dy = e.clientY - lastY;
             if (dx * dx + dy * dy < 576) return;
             lastX = e.clientX;
             lastY = e.clientY;
+            hue = (hue + 24) % 360;
             const g = document.createElement('span');
             g.className = 'mouse-glyph';
             g.textContent = GLYPHS_TRAIL[Math.floor(Math.random() * GLYPHS_TRAIL.length)];
+            g.style.color = `hsl(${hue} 75% 55%)`;
             g.style.left = `${e.clientX - 6 + Math.random() * 12}px`;
             g.style.top = `${e.clientY - 8 + Math.random() * 12}px`;
             g.style.fontSize = `${10 + Math.floor(Math.random() * 7)}px`;

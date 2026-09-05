@@ -118,14 +118,15 @@ body {
     z-index: 30;
     pointer-events: none;
     font-family: var(--mono);
+    font-weight: 700;
     color: var(--amber);
-    opacity: 0.55;
+    opacity: 0.75;
     animation: glyphFade 0.7s ease-out forwards;
 }
 
 @keyframes glyphFade {
     0% {
-        opacity: 0.55;
+        opacity: 0.75;
         transform: translateY(0);
     }
     100% {
