@@ -19,6 +19,7 @@ Static personal portfolio website (Thai-language content). No build system, no f
 - Page content is in English (owner switched from Thai); the owner's name is Phattarakit Chalermpun. Do not reintroduce terminal-command styling (`$`, `cat`, `-rw-r--r--`) — owner rejected it; use decorative `!@#$%^&*` characters instead.
 - Asset filenames (like the profile photo) are hardcoded in `index.html`; if renaming an image, update the `src` reference in the same change.
 - `.gitattributes` enforces LF normalization (`* text=auto`); don't add CRLF-only files.
+- Site is deployed via GitHub Pages, which caches assets for ~10 minutes. Whenever `script.js` or `styles.css` changes, bump the `?v=` query in `index.html`'s `<link rel="stylesheet">` / `<script src>` in the same commit, or the deployed site will keep serving the stale cached copy (browser side too).
 
 ## Workflow
 
