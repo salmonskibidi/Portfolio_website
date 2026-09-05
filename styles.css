@@ -85,6 +85,34 @@ body {
     outline-offset: 3px;
 }
 
+.crt-flash {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    background: #0d0a06;
+    opacity: 0;
+}
+
+.crt-flash.is-on {
+    animation: crtOn 0.5s ease-out forwards;
+}
+
+@keyframes crtOn {
+    0% {
+        opacity: 1;
+        transform: scaleY(0.004);
+    }
+    55% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleY(1);
+    }
+}
+
 .scanlines {
     position: fixed;
     inset: 0;
@@ -131,6 +159,9 @@ body {
 }
 
 .statusbar__mode {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     font: inherit;
     font-size: 0.72rem;
     letter-spacing: 0.12em;
@@ -141,6 +172,28 @@ body {
     padding: 0 0.5rem;
     cursor: pointer;
     transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.mode-icon {
+    width: 0.95em;
+    height: 0.95em;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    opacity: 0.85;
+}
+
+.mode-icon--sun {
+    display: none;
+}
+
+html.crt .mode-icon--sun {
+    display: inline;
+}
+
+html.crt .mode-icon--moon {
+    display: none;
 }
 
 .statusbar__mode:hover {

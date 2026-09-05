@@ -105,11 +105,12 @@
             return;
         }
         let frame = 0;
+        const hold = 6;
         const iv = setInterval(() => {
-            const reveal = Math.floor(frame / 2);
-            let out = final.slice(0, reveal);
-            for (let i = reveal; i < final.length; i++) {
-                out += final[i] === ' ' ? ' ' : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+            const reveal = Math.max(0, Math.floor((frame - hold) / 2));
+            let out = '';
+            for (let i = 0; i < final.length; i++) {
+                out += (i < reveal || final[i] === ' ') ? final[i] : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
             }
             title.textContent = out;
             frame++;
@@ -117,7 +118,7 @@
                 clearInterval(iv);
                 title.textContent = final;
             }
-        }, 45);
+        }, 60);
     };
 
     const sections = document.querySelectorAll('[data-term]');
@@ -132,7 +133,7 @@
                     io.unobserve(en.target);
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.08 });
         sections.forEach((s) => io.observe(s));
     }
 
@@ -192,12 +193,22 @@
 
     // paper / CRT mode switch
     const modeBtn = document.getElementById('modeToggle');
+    const crtFlash = document.getElementById('crtFlash');
     if (modeBtn) {
+        const label = modeBtn.querySelector('#modeLabel');
+        const flash = () => {
+            if (!crtFlash) return;
+            crtFlash.classList.remove('is-on');
+            void crtFlash.offsetWidth;
+            crtFlash.classList.add('is-on');
+        };
         const setMode = (dark) => {
+            const wasDark = document.documentElement.classList.contains('crt');
             document.documentElement.classList.toggle('crt', dark);
-            modeBtn.textContent = dark ? '[ PAPER ]' : '[ CRT ]';
+            label.textContent = dark ? '[ PAPER ]' : '[ CRT ]';
             modeBtn.setAttribute('aria-pressed', String(dark));
             try { localStorage.setItem('mode', dark ? 'crt' : 'paper'); } catch {}
+            if (dark && !wasDark && !reduced) flash();
         };
         modeBtn.addEventListener('click', () => setMode(!document.documentElement.classList.contains('crt')));
         setMode(document.documentElement.classList.contains('crt'));
