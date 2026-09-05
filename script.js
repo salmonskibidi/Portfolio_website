@@ -100,10 +100,6 @@
     const decodeTitle = (title) => {
         if (!title) return;
         const final = title.textContent.trim();
-        if (reduced) {
-            title.textContent = final;
-            return;
-        }
         let frame = 0;
         const hold = 6;
         const iv = setInterval(() => {
@@ -278,4 +274,26 @@
             spawnCat();
         }
     });
+
+    // mouse trail — decorative glyphs printed behind the cursor
+    if (!reduced && window.matchMedia('(pointer: fine)').matches) {
+        const GLYPHS_TRAIL = '!@#$%^&*';
+        let lastX = -100;
+        let lastY = -100;
+        document.addEventListener('mousemove', (e) => {
+            const dx = e.clientX - lastX;
+            const dy = e.clientY - lastY;
+            if (dx * dx + dy * dy < 576) return;
+            lastX = e.clientX;
+            lastY = e.clientY;
+            const g = document.createElement('span');
+            g.className = 'mouse-glyph';
+            g.textContent = GLYPHS_TRAIL[Math.floor(Math.random() * GLYPHS_TRAIL.length)];
+            g.style.left = `${e.clientX - 6 + Math.random() * 12}px`;
+            g.style.top = `${e.clientY - 8 + Math.random() * 12}px`;
+            g.style.fontSize = `${10 + Math.floor(Math.random() * 7)}px`;
+            document.body.appendChild(g);
+            g.addEventListener('animationend', () => g.remove());
+        }, { passive: true });
+    }
 })();

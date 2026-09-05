@@ -113,6 +113,27 @@ body {
     }
 }
 
+.mouse-glyph {
+    position: fixed;
+    z-index: 30;
+    pointer-events: none;
+    font-family: var(--mono);
+    color: var(--amber);
+    opacity: 0.55;
+    animation: glyphFade 0.7s ease-out forwards;
+}
+
+@keyframes glyphFade {
+    0% {
+        opacity: 0.55;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}
+
 .scanlines {
     position: fixed;
     inset: 0;
