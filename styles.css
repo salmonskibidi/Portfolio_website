@@ -17,6 +17,49 @@
     box-sizing: border-box;
 }
 
+html.crt {
+    color-scheme: dark;
+    --bg: #17120c;
+    --raise: #221b12;
+    --amber: #d99a3d;
+    --bright: #ffc46b;
+    --dim: #9a742f;
+    --faint: #43351d;
+    --red: #e08aa6;
+}
+
+html.crt body {
+    background: radial-gradient(120% 90% at 50% 0%, #2a2013 0%, var(--bg) 55%);
+}
+
+html.crt ::selection {
+    background: #4a3a1f;
+    color: #ffc46b;
+}
+
+html.crt .scanlines {
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 176, 0, 0.05) 0px,
+        rgba(255, 176, 0, 0.05) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+}
+
+html.crt .statusbar {
+    background: rgba(23, 18, 12, 0.92);
+}
+
+html.crt .portrait {
+    border-color: #4a3a22;
+    background: #0d0a06;
+}
+
+html.crt .switch-btn.is-active {
+    color: #17120c;
+}
+
 html {
     color-scheme: light;
     scroll-behavior: smooth;
@@ -74,6 +117,35 @@ body {
 
 .statusbar__path {
     color: var(--dim);
+}
+
+.statusbar__right {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.statusbar__time {
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+}
+
+.statusbar__mode {
+    font: inherit;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--dim);
+    background: none;
+    border: 1px solid var(--faint);
+    border-radius: 2px;
+    padding: 0 0.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.statusbar__mode:hover {
+    color: var(--amber);
+    border-color: var(--amber);
 }
 
 .statusbar__tag {
@@ -318,6 +390,27 @@ a.hero__contact-item:hover {
     color: var(--red);
 }
 
+.copy-btn {
+    font: inherit;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.copy-btn:hover {
+    color: var(--bright);
+}
+
+.copy-btn.is-copied {
+    color: var(--red);
+}
+
 .log {
     list-style: none;
     max-width: 42rem;
@@ -465,10 +558,26 @@ a.hero__contact-item:hover {
 }
 
 .footer {
+    position: relative;
+    overflow: hidden;
     max-width: 1060px;
     margin: 0 auto;
     padding: 2rem 1.25rem 3rem;
     border-top: 1px solid var(--faint);
+}
+
+.konami-cat {
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.15;
+    color: var(--dim);
+    white-space: pre;
+    pointer-events: none;
+    will-change: transform;
 }
 
 .footer__mark {
@@ -574,6 +683,10 @@ body.no-scroll {
 }
 
 @media (max-width: 720px) {
+    .statusbar__time {
+        display: none;
+    }
+
     .hero {
         grid-template-columns: 1fr;
         gap: 2rem;

@@ -92,6 +92,32 @@
         if (body) body.classList.add('is-visible');
         const ascii = sec.querySelector('pre.ascii:not([hidden])');
         if (ascii) printAscii(ascii);
+        decodeTitle(sec.querySelector('.sec-title'));
+    };
+
+    const GLYPHS = '!@#$%^&*';
+
+    const decodeTitle = (title) => {
+        if (!title) return;
+        const final = title.textContent.trim();
+        if (reduced) {
+            title.textContent = final;
+            return;
+        }
+        let frame = 0;
+        const iv = setInterval(() => {
+            const reveal = Math.floor(frame / 2);
+            let out = final.slice(0, reveal);
+            for (let i = reveal; i < final.length; i++) {
+                out += final[i] === ' ' ? ' ' : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+            }
+            title.textContent = out;
+            frame++;
+            if (reveal >= final.length) {
+                clearInterval(iv);
+                title.textContent = final;
+            }
+        }, 45);
     };
 
     const sections = document.querySelectorAll('[data-term]');
@@ -151,4 +177,94 @@
             if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
         });
     }
+
+    // statusbar clock
+    const clock = document.getElementById('clock');
+    if (clock) {
+        const pad = (n) => String(n).padStart(2, '0');
+        const tick = () => {
+            const d = new Date();
+            clock.textContent = `[ ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} ]`;
+        };
+        tick();
+        setInterval(tick, 1000);
+    }
+
+    // paper / CRT mode switch
+    const modeBtn = document.getElementById('modeToggle');
+    if (modeBtn) {
+        const setMode = (dark) => {
+            document.documentElement.classList.toggle('crt', dark);
+            modeBtn.textContent = dark ? '[ PAPER ]' : '[ CRT ]';
+            modeBtn.setAttribute('aria-pressed', String(dark));
+            try { localStorage.setItem('mode', dark ? 'crt' : 'paper'); } catch {}
+        };
+        modeBtn.addEventListener('click', () => setMode(!document.documentElement.classList.contains('crt')));
+        setMode(document.documentElement.classList.contains('crt'));
+    }
+
+    // copy email button
+    document.querySelectorAll('.copy-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+            const text = btn.dataset.copy;
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+            }
+            btn.classList.add('is-copied');
+            btn.textContent = '[ copied ]';
+            setTimeout(() => {
+                btn.classList.remove('is-copied');
+                btn.textContent = '[ copy ]';
+            }, 1600);
+        });
+    });
+
+    // konami code — an ASCII cat strolls across the footer
+    const CAT_FRAMES = [
+        [' /\\_/\\ ', '( -.- )', ' > ~ < '],
+        [' /\\_/\\ ', '( o.o )', ' > ^ < ']
+    ];
+
+    const spawnCat = () => {
+        const footer = document.querySelector('.footer');
+        if (!footer || footer._cat) return;
+        footer._cat = true;
+        const cat = document.createElement('pre');
+        cat.className = 'konami-cat';
+        cat.setAttribute('aria-hidden', 'true');
+        footer.appendChild(cat);
+        if (reduced) {
+            cat.textContent = CAT_FRAMES[0].join('\n');
+            cat.style.transform = `translateX(${window.innerWidth - 90}px)`;
+            setTimeout(() => { cat.remove(); footer._cat = false; }, 3000);
+            return;
+        }
+        let x = -80;
+        const step = () => {
+            x += 3.4;
+            cat.textContent = CAT_FRAMES[Math.floor(x / 30) % 2].join('\n');
+            cat.style.transform = `translateX(${x}px)`;
+            if (x < window.innerWidth + 40) requestAnimationFrame(step);
+            else { cat.remove(); footer._cat = false; }
+        };
+        requestAnimationFrame(step);
+    };
+
+    const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let konamiIndex = 0;
+    document.addEventListener('keydown', (e) => {
+        const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        konamiIndex = k === KONAMI[konamiIndex] ? konamiIndex + 1 : (k === KONAMI[0] ? 1 : 0);
+        if (konamiIndex === KONAMI.length) {
+            konamiIndex = 0;
+            spawnCat();
+        }
+    });
 })();
