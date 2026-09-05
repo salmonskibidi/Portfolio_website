@@ -290,7 +290,32 @@ main {
 }
 
 .hero__contact-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45rem;
     color: var(--bright);
+}
+
+.hero__contact-item .icon {
+    width: 0.85em;
+    height: 0.85em;
+    flex: none;
+    align-self: center;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.7;
+}
+
+a.hero__contact-item {
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a.hero__contact-item:hover {
+    color: var(--red);
 }
 
 .log {
